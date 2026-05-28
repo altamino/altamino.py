@@ -9,6 +9,9 @@ import altamino.objects.args as args
 from altamino.clients.client import Client
 from altamino.clients.sub_client import SubClient
 
+from altamino.clients._async.client import Client as AsyncClient
+from altamino.clients._async.sub_client import SubClient as AsyncSubClient
+
 
 
 

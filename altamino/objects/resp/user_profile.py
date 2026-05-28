@@ -7,7 +7,7 @@ class UserProfile(BaseObject):
         super().__init__(data)
         data = data or {}
         if data.get("userProfile") is not None: data=data.get("userProfile", {})
-        
+
         self.status = data.get("status")
         self.mood_sticker = data.get("moodSticker")
         self.items_count = data.get("itemsCount")

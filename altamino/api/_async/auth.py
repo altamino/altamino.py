@@ -8,7 +8,7 @@ from altamino.utils import exceptions
 class AuthModule(BaseClass):
 
 
-	def login(self, email: str, password: str | None = None, secret: str | None = None, client_type: int = args.ClientTypes.User) -> respObject.AuthData:
+	async def login(self, email: str, password: str | None = None, secret: str | None = None, client_type: int = args.ClientTypes.User) -> respObject.AuthData:
 		"""
 		Login into an account.
 
@@ -19,7 +19,7 @@ class AuthModule(BaseClass):
 		- client_type: Type of Client.
 		"""
 		if password is None and secret is None: raise exceptions.SpecifyType("Either password or secret must be provided.")
-		result = self.req.make_request("POST", "/g/s/auth/login", {
+		result = await self.req.make_async_request("POST", "/g/s/auth/login", {
 			"email": email,
 			"v": 2,
 			"secret": secret if secret else f"0 {password}",
@@ -28,7 +28,7 @@ class AuthModule(BaseClass):
 			"action": "normal",
 		})
 
-		data = result.json()
+		data = await result.json()
 		self.me = respObject.AuthData(data)
 
 		self.set_sid(self.me.sid)
@@ -38,8 +38,8 @@ class AuthModule(BaseClass):
 			#self.ws_connect(final=final, headers=self.ws_headers(self.sid, final, self.deviceId))
 		return self.me
 
-	def get_account_info(self) -> respObject.UserProfile:
+	async def get_account_info(self) -> respObject.UserProfile:
 		"""
 		Getting account info about you.
 		"""
-		return respObject.UserProfile(self.req.make_request("GET", "/g/s/account").json())
+		return respObject.UserProfile(await (await self.req.make_async_request("GET", "/g/s/account")).json())
