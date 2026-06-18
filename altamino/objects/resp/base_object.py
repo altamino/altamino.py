@@ -1,4 +1,4 @@
-
+from __future__ import annotations
 
 class BaseObject:
     api_message: str | None

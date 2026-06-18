@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from base64 import b64decode, b64encode, urlsafe_b64decode
 from time import timezone as tz_raw
 from time import time as timestamp

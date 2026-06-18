@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 from datetime import datetime
 from colorama import Fore, Style, init
@@ -14,7 +16,7 @@ class loglevel:
     CRITICAL = 50
 
 class Logger:
-    def __init__(self, level=loglevel.INFO, log_to_file=False, log_file='kyodo.log'):
+    def __init__(self, level=loglevel.INFO, log_to_file=False, log_file='altamino.log'):
         self.logger = logging.getLogger("Logger")
         self.logger.setLevel(level)
         self.logger.propagate = False
@@ -78,7 +80,7 @@ class Logger:
     def set_level(self, level: int | str):
         self.logger.setLevel(level)
 
-    def enable_file_logging(self, log_file: str = 'kyodo.log'):
+    def enable_file_logging(self, log_file: str = 'altamino.log'):
         if not self.log_to_file:
             self.log_to_file = True
             self.log_file = log_file

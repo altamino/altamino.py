@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "altamino"
+version = "1.0.1"
+description = "Library for creating Altamino bots and scripts."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "alx0rr", email = "anon.mail.al@proton.me" }]
+requires-python = ">=3.9"
+keywords = ["altamino", "altamino-bot", "altamino-py", "api", "async", "sync", "altamino.top", "alx0rr"]
+
+dependencies = [
+    "colorama",
+    "aiohttp",
+    "pyjwt",
+    "aiofiles",
+    "orjson",
+    "websocket-client",
+    "httpx",
+    "httpx[socks]",
+    "aiohttp-socks",
+    "packaging"
+]
+
+[project.urls]
+Homepage = "https://github.com/altamino/altamino.py"
+Documentation = "https://github.com/altamino/altamino.py/blob/main/docs/index.md"
+Repository = "https://github.com/altamino/altamino.py"
+"Bug Tracker" = "https://github.com/altamino/altamino.py/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]

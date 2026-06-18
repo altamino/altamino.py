@@ -1,4 +1,6 @@
-from orjson import loads, JSONDecodeError
+from __future__ import annotations
+
+from orjson import JSONDecodeError
 
 from typing import TYPE_CHECKING
 
@@ -115,6 +117,12 @@ class RequiredAuthorization(LibraryError):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 
+class UnsupportedArgumentType(LibraryError):
+	"""
+	Raised when you pass an unsupported argument type.
+	"""
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
 #-----
 
 

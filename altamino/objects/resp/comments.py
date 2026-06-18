@@ -1,5 +1,5 @@
 from .base_object import BaseObject
-from .user_profile import UserProfile
+from .user import UserProfile
 
 class Comment:
     def __init__(self, data: dict):

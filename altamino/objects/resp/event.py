@@ -1,11 +1,19 @@
 from . import Message
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+	from altamino import AsyncClient, Client
+
 class Event:
 	"""
 		class with data about a new event
 	"""
 
-	def __init__(self, data: dict):
+	def __init__(self, data: dict, client):
+		self.client: AsyncClient | Client = client
+
+		
 		self.data = data or {}
 		params = data.get("params", {})
 		self.message: Message = Message(data.get("chatMessage", {}))

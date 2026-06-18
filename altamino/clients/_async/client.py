@@ -1,5 +1,4 @@
-
-from sys import exception
+from __future__ import annotations
 
 from altamino.utils.requester import Requester
 from altamino.objects.proxy import ProxyConfig, ProxyPool
@@ -14,7 +13,9 @@ from altamino import args, respObject
 from altamino.api._async import *
 
 
-from typing import BinaryIO
+from typing import IO
+from _io import BufferedReader
+from aiofiles.threadpool.binary import AsyncBufferedReader
 from mimetypes import guess_type
 
 class Client(
@@ -86,14 +87,24 @@ class Client(
 
 
 
-	async def upload_media(self, file: BinaryIO, fileType: str | None = None) -> respObject.MediaObject:
+	async def upload_media(self, file: IO | BufferedReader | AsyncBufferedReader, fileType: str | None = None) -> respObject.MediaObject:
 		"""
         Upload file to the amino servers.
 
         **Parameters**
         - file : File to be uploaded.
+		- fileType : image/jpg, image/png ... or None
 		"""
+		if isinstance(file, (BufferedReader, IO)):
+			file_name = file.name
+			file_content = file.read()
+		elif isinstance(file, AsyncBufferedReader):
+			file_name = file.name
+			file_content = await file.read()
+		else: raise exceptions.UnsupportedArgumentType(f"file: {type(file)}")
+
+		
 		if fileType is None:
-			fileType = guess_type(file.name)[0]
+			fileType = guess_type(file_name)[0]
 		if fileType not in args.UploadType.all: raise exceptions.SpecifyType(fileType)
-		return respObject.MediaObject(await (await self.req.make_async_request("POST", "/g/s/media/upload", file.read(), headers={"Content-Type":fileType})).json())
+		return respObject.MediaObject(await (await self.req.make_async_request("POST", "/g/s/media/upload", file_content, headers={"Content-Type":fileType})).json())

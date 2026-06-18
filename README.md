@@ -1,6 +1,6 @@
 <div align="center">
 
-![](https://raw.githubusercontent.com/altamino/altamino.py/refs/heads/main/docs/res/banner.png?token=GHSAT0AAAAAAD6H2SNNLOSO5NBTOTHSZWEG2QYLH3Q)
+![](https://raw.githubusercontent.com/altamino/altamino.py/refs/heads/main/docs/res/banner.png)
 
 # altamino.py
 

@@ -1,6 +1,6 @@
+from __future__ import annotations
 
-from sys import exception
-
+from altamino.ws.socket import Socket
 from altamino.utils.requester import Requester
 from altamino.objects.proxy import ProxyConfig, ProxyPool
 from altamino.utils.generators import Generator
@@ -11,14 +11,17 @@ from altamino.utils import exceptions
 
 from altamino import args, respObject
 
-from altamino.api import *
+from altamino.api._sync import *
 
 
-from typing import BinaryIO
+from typing import IO
+from _io import BufferedReader
 from mimetypes import guess_type
 
 class Client(
-	AuthModule
+	Socket,
+	AuthModule,
+	GlobalChatsModule
 	):
 
 	state: ThreadSafeState
@@ -39,12 +42,12 @@ class Client(
 			  community_language: str = "en",
 			  socket_enable: bool = True,
 			  socket_error_trace: bool = False,
-			  socket_daemon: bool = False,
+			  socket_daemon: bool = True,
 			  proxy: ProxyConfig | ProxyPool | None = None
 			  ):
 
 
-		#Socket.__init__(self, socket_error_trace, socket_daemon)
+		Socket.__init__(self, socket_error_trace, socket_daemon)
 		self.socket_enable = socket_enable
 
 		if deviceId is None:
@@ -86,12 +89,13 @@ class Client(
 
 
 
-	def upload_media(self, file: BinaryIO, fileType: str | None = None) -> respObject.MediaObject:
+	def upload_media(self, file: IO | BufferedReader, fileType: str | None = None) -> respObject.MediaObject:
 		"""
         Upload file to the amino servers.
 
         **Parameters**
         - file : File to be uploaded.
+		- fileType : image/jpg, image/png ... or None
 		"""
 		if fileType is None:
 			fileType = guess_type(file.name)[0]

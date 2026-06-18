@@ -1,9 +1,15 @@
+from __future__ import annotations
+
 from altamino.utils.requester import Requester
 from altamino.utils.generators import Generator
 from altamino import respObject
 
+from typing import IO
+from _io import BufferedReader
+from aiofiles.threadpool.binary import AsyncBufferedReader
 
-class BaseClass():
+
+class Base():
 	req: Requester
 	socket_enable: bool
 	me: respObject.AuthData = respObject.AuthData({})
@@ -46,3 +52,16 @@ class BaseClass():
 
 	def set_sid(self, sid: str | None) -> None:
 		self.req.sid = sid
+
+
+
+class AsyncBaseClass(Base):
+	async def upload_media(self, file: IO | BufferedReader | AsyncBufferedReader, fileType: str | None = None) -> respObject.MediaObject: ...
+	async def ws_disconnect() -> None: ...
+	async def ws_connect() -> None: ...
+
+
+class SyncBaseClass(Base):
+	def upload_media(self, file: IO | BufferedReader, fileType: str | None = None) -> respObject.MediaObject: ...
+	def ws_disconnect() -> None: ...
+	def ws_connect() -> None: ...

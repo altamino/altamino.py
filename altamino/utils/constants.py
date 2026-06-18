@@ -4,6 +4,11 @@ from time import timezone as tz_raw
 api_url: str = "https://service.altamino.top/api/v1"
 ws_url: str = "wss://ws1.altamino.top"
 
+
+ws_reconnect_time = 600
+ws_ping_time = 10
+
+
 PREFIX = bytes.fromhex("19")
 SIG_KEY = bytes.fromhex("DFA5ED192DDA6E88A12FE12130DC6206B1251E44")
 DEVICE_KEY = bytes.fromhex("E7309ECC0953C6FA60005B2765F99DBBC965C8E9")

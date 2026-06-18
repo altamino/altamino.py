@@ -1,4 +1,4 @@
-from .user_profile import UserProfile
+from .user import UserProfile
 from .base_object import BaseObject
 
 class Blog(BaseObject):

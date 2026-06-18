@@ -1,6 +1,6 @@
 from .base_object import BaseObject
 
-from .user_profile import UserProfile
+from .user import UserProfile
 from .account import Account
 
 
