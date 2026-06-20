@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 from enum import Enum, Flag, auto
 from dataclasses import dataclass, field
 from aiohttp_socks import ProxyConnector, ProxyType as SocksProxyType
@@ -46,8 +45,8 @@ class ProxyConfig:
 		from urllib.parse import urlparse
 		parsed = urlparse(url)
 		return cls(
-			host=parsed.hostname or '',
-			port=parsed.port or 8080,
+			host=parsed.hostname,
+			port=parsed.port,
 			proxy_type=ProxyType(parsed.scheme.lower()),
 			username=parsed.username or None,
 			password=parsed.password or None,

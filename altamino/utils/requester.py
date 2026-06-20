@@ -7,7 +7,7 @@ from orjson import loads, dumps
 from re import compile
 from typing import Any, Callable
 
-from altamino.objects.proxy import ProxyConfig, ProxyPool, ProxyUsage, ProxyConnector, ProxyType
+from altamino.objects.args import ProxyConfig, ProxyPool, ProxyUsage, ProxyConnector, ProxyType
 from altamino.utils import log
 from altamino.utils.generators import Generator
 from altamino.utils.constants import BASIC_HEADERS, api_url

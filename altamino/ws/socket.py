@@ -32,7 +32,6 @@ class Socket(MessageHandler, SocketActions):
 
 		self.socket = None
 		self.active = False
-		self.headers = None
 		self.socket_thread = None
 		self.ping_thread = None
 		self.ping_payload = dumps({"t": 116, "o": {"threadChannelUserInfoList": []}})
@@ -122,7 +121,7 @@ class Socket(MessageHandler, SocketActions):
 
 			final = f"{self.deviceId}|{Generator.reqtime()}"
 
-			self.headers = {
+			headers = {
 				"Accept-Encoding": "gzip, deflate, br",
 				"Connection": "Upgrade",
 				"AUID": self.userId,
@@ -135,7 +134,7 @@ class Socket(MessageHandler, SocketActions):
 			self.socket = websocket.WebSocketApp(
 				f"{ws_url}/?signbody={final.replace('|', '%7C')}",
 				on_message=self.handle_message,
-				header=self.headers,
+				header=headers,
 				on_error=self.handle_error,
 				on_close=self.handle_close,
 			)

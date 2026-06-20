@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 from altamino.utils.requester import Requester
-from altamino.objects.proxy import ProxyConfig, ProxyPool
+from altamino.objects.args import ProxyConfig, ProxyPool
 from altamino.utils.generators import Generator
 from altamino.utils.state import AsyncSafeState
 from altamino.utils import log
 from altamino.clients._async.sub_client import SubClient
 from altamino.utils import exceptions
-
+from altamino.ws._async.socket import Socket
 from altamino import args, respObject
 
 from altamino.api._async import *
@@ -19,6 +19,7 @@ from aiofiles.threadpool.binary import AsyncBufferedReader
 from mimetypes import guess_type
 
 class Client(
+	Socket,
 	AuthModule
 	):
 
@@ -39,13 +40,11 @@ class Client(
 			  accept_language: str = "en-us",
 			  community_language: str = "en",
 			  socket_enable: bool = True,
-			  socket_error_trace: bool = False,
-			  socket_daemon: bool = False,
 			  proxy: ProxyConfig | ProxyPool | None = None
 			  ):
 
 
-		#Socket.__init__(self, socket_error_trace, socket_daemon)
+		Socket.__init__(self)
 		self.socket_enable = socket_enable
 
 		if deviceId is None:

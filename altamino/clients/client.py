@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from altamino.ws.socket import Socket
 from altamino.utils.requester import Requester
-from altamino.objects.proxy import ProxyConfig, ProxyPool
+from altamino.objects.args import ProxyConfig, ProxyPool
 from altamino.utils.generators import Generator
 from altamino.utils.state import ThreadSafeState
 from altamino.utils import log

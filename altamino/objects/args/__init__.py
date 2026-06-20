@@ -30,3 +30,4 @@ from .ws_event_types import (
 )
 
 from .chat_types import ChatTypes
+from .proxy import ProxyConfig, ProxyPool, ProxyType, ProxyConnector, ProxyUsage
