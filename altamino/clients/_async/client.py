@@ -20,7 +20,8 @@ from mimetypes import guess_type
 
 class Client(
 	Socket,
-	AuthModule
+	AuthModule,
+	GlobalChatsModule
 	):
 
 	state: AsyncSafeState
