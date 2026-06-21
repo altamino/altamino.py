@@ -24,7 +24,6 @@ class Client(
 	):
 
 	state: AsyncSafeState
-	community: SubClient
 
 	@property
 	def proxy(self) -> ProxyConfig | ProxyPool | None:
@@ -53,8 +52,9 @@ class Client(
 
 		self.req = Requester(user_agent, deviceId, community_language, accept_language, proxy)
 		self.state = AsyncSafeState()
-		self.community = SubClient(self)
 
+	def get_community_client(self, comId: str | None = None, aminoId: str | None = None) -> SubClient:
+		return SubClient(self, comId, aminoId)
 
 
 	async def get_from_id(self, objectId: str, objectType: int, comId: int | None = None) -> respObject.FromCode:

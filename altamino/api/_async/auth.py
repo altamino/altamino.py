@@ -59,13 +59,13 @@ class AuthModule(AsyncBaseClass):
 		return self.me
 
 
-	async def logout(self) -> respObject.BaseObject:
+	async def logout(self, client_type: int = args.ClientTypes.User) -> respObject.BaseObject:
 		"""
 		Logout from an account.
 		"""
 		result = await (await self.req.make_async_request("POST", "/g/s/auth/logout", {
 			"deviceID": self.deviceId,
-			"clientType": Generator.sid_to_client_type(self.sid),
+			"clientType": client_type#Generator.sid_to_client_type(self.sid),
 		})).json()
 		self.set_sid(None)
 		self.set_userId(None)
