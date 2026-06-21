@@ -3,10 +3,10 @@ from altamino.objects.args import wsEvent, ws_message_methods, ws_chat_action_en
 from altamino.objects.resp import Event
 
 from altamino.ws import MiddlewareStopException
-from altamino.ws.router import Router
+from altamino.ws._async.router import AsyncRouter
 
 
-class MessageHandler(Router):
+class MessageHandler(AsyncRouter):
 	"""Dispatches incoming socket events to registered handlers"""
 
 	def __init__(self):
