@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 	from altamino.clients._async.client import Client
 
 
-class SubClient(CommunityChatsModule, AltACMModule):
+class SubClient(CommunityChatsModule, AltACMModule, CommunityAdminModule):
 	comId: str | int | None = None
 
 	def __init__(self, client: Client, comId: str | int | None = None, aminoId: str | None = None):
