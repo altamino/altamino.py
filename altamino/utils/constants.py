@@ -1,7 +1,7 @@
 from time import timezone as tz_raw
 
 
-api_url: str = "https://service.altamino.top/api/v1"
+api_url: str = "https://dev-service.altamino.top/api/v1"
 ws_url: str = "wss://ws1.altamino.top"
 
 
