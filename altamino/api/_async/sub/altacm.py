@@ -7,7 +7,7 @@ class AltACMModule(SyncBaseClass):
 	comId: str | int | None
 	
 
-	def create_community(self, name, aminoId, agentGlobalLink, lang) -> dict:
+	async def create_community(self, name, aminoId, agentGlobalLink, lang) -> dict:
 
 		data = {
 			"name": name,
@@ -16,11 +16,11 @@ class AltACMModule(SyncBaseClass):
 			"lang": lang
 		}
 		
-		return self.req.make_request("POST",  f"/altacm/s/community/create", data).json()
+		return await self.req.make_async_request("POST",  f"/altacm/s/community/create", data).json()
 
 
 
-	def edit_community(self, name, aminoId, agentGlobalLink, lang) -> dict:
+	async def edit_community(self, name, aminoId, agentGlobalLink, lang) -> dict:
 
 		data = {
 			"name": name,
@@ -29,5 +29,5 @@ class AltACMModule(SyncBaseClass):
 			"lang": lang
 		}
 		
-		return self.req.make_request("POST",  f"/altacm/s/community/x{self.comId}/edit", data).json()
+		return await self.req.make_async_request("POST",  f"/altacm/s/community/x{self.comId}/edit", data).json()
 

@@ -18,7 +18,6 @@ BASIC_HEADERS = {
     "Accept-Encoding": "gzip, deflate",
     "Accept-Language": "en-US,en;q=0.9",
     "Connection": "keep-alive",
-	"Host": "service.altamino.top",
     "NDCLANG": "en",
     "Content-Type": "application/json; charset=utf-8"
 }

@@ -32,7 +32,7 @@ class CommunityChatsModule(SyncBaseClass):
 		**Parameters**
 		- chatId : ID of the Chat.
 		"""
-		return resp.BaseObject(await (await self.req.make_request("POST", f"/x{self.comId}/s/chat/thread/{chatId}/member/{self.userId}", content_type="application/x-www-form-urlencoded")).json())
+		return resp.BaseObject(await (await self.req.make_async_request("POST", f"/x{self.comId}/s/chat/thread/{chatId}/member/{self.userId}", content_type="application/x-www-form-urlencoded")).json())
 
 	async def leave_chat(self, chatId: str) -> resp.BaseObject:
 		"""
@@ -41,4 +41,4 @@ class CommunityChatsModule(SyncBaseClass):
 		**Parameters**
 		- chatId : ID of the Chat.
 		"""
-		return resp.BaseObject(await (await self.req.make_request("DELETE", f"/x{self.comId}/s/chat/thread/{chatId}/member/{self.userId}", content_type="application/x-www-form-urlencoded")).json())
+		return resp.BaseObject(await (await self.req.make_async_request("DELETE", f"/x{self.comId}/s/chat/thread/{chatId}/member/{self.userId}", content_type="application/x-www-form-urlencoded")).json())
