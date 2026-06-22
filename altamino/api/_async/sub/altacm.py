@@ -16,7 +16,7 @@ class AltACMModule(SyncBaseClass):
 			"lang": lang
 		}
 		
-		return await self.req.make_async_request("POST",  f"/altacm/s/community/create", data).json()
+		return await (await self.req.make_async_request("POST",  f"/altacm/s/community/create", data)).json()
 
 
 
@@ -29,5 +29,5 @@ class AltACMModule(SyncBaseClass):
 			"lang": lang
 		}
 		
-		return await self.req.make_async_request("POST",  f"/altacm/s/community/x{self.comId}/edit", data).json()
+		return await (await self.req.make_async_request("POST",  f"/altacm/s/community/x{self.comId}/edit", data)).json()
 
