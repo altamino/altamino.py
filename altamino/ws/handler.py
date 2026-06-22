@@ -20,7 +20,7 @@ class MessageHandler(Router):
 		**parameters**
 		- data : data from web socket
 		"""
-		log.debug(f"[WS] new message: {data}")
+		log.debug(f"[WS][receive]: {data}")
 		data_object = Event(data["o"], self)
 		method = ws_message_methods.get(data["t"])
 		if method in ("chat_action_start", "chat_action_end") :
