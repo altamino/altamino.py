@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 
 
-class SubClient(CommunityChatsModule, AltACMModule):
+class SubClient(CommunityChatsModule):
 	comId: str | int | None = None
 
 	def __init__(self, client: Client, comId: str | int | None = None, aminoId: str | None = None):
