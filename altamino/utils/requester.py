@@ -295,7 +295,7 @@ class Requester:
 					request=HTTPRequest(method, url, data, req_headers, _proxy)
 				)
 				log.debug(
-					f"[https][{method}][{api or ''}{endpoint or ''}][{response.status}]: "
+					f"[https][{method}][{api or api_url}{endpoint or ''}][{response.status}]: "
 					f"{len(body) if isinstance(body, bytes) else body or '{}'}\n"
 					f"Headers: {req_headers}\n"
 					f"Proxy: {_proxy.url if _proxy else 'No proxy'}"
