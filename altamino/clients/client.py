@@ -86,7 +86,7 @@ class Client(
 		- link : link from the Amino.
 			- ``http://aminoapps.com/p/EXAMPLE``, the ``link`` is 'EXAMPLE'.
 		"""
-		return respObject.FromCode(self.req.make_request("GET", f"/g/s/link-resolution?q={link.split('/')[-1]}").json())
+		return respObject.FromCode(self.req.make_request("GET", f"/g/s/link-resolution?q={link}").json())
 
 
 
