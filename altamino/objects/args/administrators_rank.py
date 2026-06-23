@@ -19,6 +19,6 @@ class AdministratorsRank:
 
 
 class AltAminoAdminRank:
-    Curator=100
-    Leader=101
+    Curator=101
+    Leader=100
     Agent=102
