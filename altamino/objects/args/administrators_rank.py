@@ -15,3 +15,10 @@ class AdministratorsRank:
     Curator: str = "curator"
 
     all: tuple = (Agent, Leader, Curator)
+
+
+
+class AltAminoAdminRank:
+    Curator=100
+    Leader=101
+    Agent=102
