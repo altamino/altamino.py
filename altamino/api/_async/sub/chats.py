@@ -91,3 +91,13 @@ class CommunityChatsModule(AsyncBaseClass):
 
 	async def kick(self, userId: str, chatId: str, allowRejoin: bool = True, comId: str | int | None = None):
 		return await (await self.req.make_async_request("DELETE", f"/x{comId or self.comId}/s/chat/thread/{chatId}/member/{userId}?allowRejoin={int(allowRejoin)}")).json()
+
+
+	async def delete_chat(self, chatId: str):
+		"""
+		Delete a Chat.
+
+		**Parameters**
+		- chatId : ID of the Chat.
+		"""
+		return await (await self.req.make_async_request("DELETE", f"/x{self.comId}/s/chat/thread/{chatId}")).json()

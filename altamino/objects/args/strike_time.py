@@ -1,14 +1,9 @@
 class StrikeTime:
-	"""
-	reading mode time
-	
-	attributes:
-	
-	- ONE_HOUR
-	- TWO_DAYS
-	- THREE_DAYS
-	"""
-
-	ONE_HOUR = 1
-	TWO_DAYS = 2
-	THREE_DAYS = 3
+    """
+    Strike duration time
+    """
+    ONE_HOUR = 1
+    THREE_HOURS = 2
+    SIX_HOURS = 3
+    TWELVE_HOURS = 4
+    TWENTY_FOUR_HOURS = 5
