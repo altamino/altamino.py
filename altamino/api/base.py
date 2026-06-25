@@ -41,7 +41,8 @@ class Base():
 	def update_device(self) -> None:
 		if self.req.deviceId: self.req.deviceId = Generator.update_deviceId(self.req.deviceId)
 
-	def set_language(self, language: str) -> None:
+	def set_language(self, language: str, region: str = "US") -> None:
+		self.req.accept_language = f"{language}-{region}"
 		self.req.language = language
 
 	def set_user_agent(self, user_agent: str) -> None:

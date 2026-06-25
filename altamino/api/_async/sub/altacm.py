@@ -1,9 +1,9 @@
 from __future__ import annotations
-from altamino.api.base import SyncBaseClass
+from altamino.api.base import AsyncBaseClass
 from altamino.objects import args, resp
 
 
-class AltACMModule(SyncBaseClass):
+class AltACMModule(AsyncBaseClass):
 	comId: str | int | None
 	
 
@@ -39,14 +39,35 @@ class AltACMModule(SyncBaseClass):
 
 
 
-	async def edit_community(self, name, aminoId, agentGlobalLink, lang) -> dict:
-
+	async def edit_community(
+		self,
+		name: str = None,
+		tagline: str = None,
+		aminoId: str = None,
+		description: str = None,
+		guidelines: str = None,
+		icon: str = None,
+		coverUrl: str = None,
+		themeUrl: str = None,
+		themeColor: str = None,
+		themeRevision: int = None,
+	) -> dict:
 		data = {
-			"name": name,
-			"aminoId": aminoId,
-			"agentGlobalLink": agentGlobalLink,
-			"lang": lang
+			k: v for k, v in {
+				"name": name,
+				"tagline": tagline,
+				"aminoId": aminoId,
+				"description": description,
+				"guidelines": guidelines,
+				"icon": icon,
+				"coverUrl": coverUrl,
+				"themeUrl": themeUrl,
+				"themeColor": themeColor,
+				"themeRevision": themeRevision,
+			}.items() if v is not None
 		}
-		
-		return await (await self.req.make_async_request("POST",  f"/altacm/s/community/x{self.comId}/edit", data)).json()
-
+		return await (await self.req.make_async_request(
+			"POST",
+			f"/altacm/s/community/x{self.comId}/edit",
+			data
+		)).json()
