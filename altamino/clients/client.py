@@ -21,7 +21,7 @@ from mimetypes import guess_type
 class Client(
 	Socket,
 	AuthModule,
-	GlobalChatsModule
+	GlobalChatsModule,
 	):
 
 	state: ThreadSafeState

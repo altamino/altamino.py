@@ -22,6 +22,7 @@ class Client(
 	Socket,
 	AuthModule,
 	GlobalChatsModule,
+	AltTeamModule
 	):
 
 	state: AsyncSafeState
