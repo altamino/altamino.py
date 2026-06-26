@@ -76,7 +76,7 @@ class CommunityChatsModule(AsyncBaseClass):
 		- chatId: id of the chat 
 		- userIds: id of the user's
 		"""
-		data = { "uid": userIds }
+		data = {"uidList": userIds }
 		return await (await self.req.make_async_request("POST", f"/x{comId or self.comId}/s/chat/thread/{chatId}/transfer-organizer", data)).json()
 
 	async def accept_host(self, chatId: str, requestId: str, comId: str | int | None = None):
