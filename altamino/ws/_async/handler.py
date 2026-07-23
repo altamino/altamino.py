@@ -20,6 +20,7 @@ class MessageHandler(AsyncRouter):
 		**parameters**
 		- data : data from web socket
 		"""
+		if data.get("o") is None:return
 		data_object = Event(data["o"], self)
 		method = ws_message_methods.get(data["t"])
 		if method in ("chat_action_start", "chat_action_end") :

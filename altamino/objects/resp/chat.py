@@ -108,7 +108,7 @@ class StickerCollection(BaseObject):
 class Chat(BaseObject):
     def __init__(self, data: dict):
         super().__init__(data)
-        if data.get("thread") is not None: data = data.get("thread", {})
+        if data.get("thread") is not None: self.data = data.get("thread", {})
 
         self.author: UserProfile = UserProfile(self.data.get("author", {}))
         self.membersSummary: list[UserProfile] = [UserProfile(x) for x in self.data.get("membersSummary", [])]
