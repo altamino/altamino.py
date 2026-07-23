@@ -1,6 +1,12 @@
 from __future__ import annotations
 from altamino.api.base import AsyncBaseClass
 from altamino.objects import args, resp
+from altamino.utils.generators import b64encode
+
+
+from typing import BinaryIO
+from mimetypes import guess_type
+
 
 class GlobalChatsModule(AsyncBaseClass):
 
@@ -76,3 +82,48 @@ class GlobalChatsModule(AsyncBaseClass):
 			data["extensions"] = {"mentionedArray": mentions}
 
 		return resp.Message(await (await self.req.make_async_request("POST",  f"/g/s/chat/thread/{chatId}/message", data)).json())
+
+
+
+	async def send_sticker(self, chatId: str, stickerId: str) -> resp.Message:
+
+		data = {
+		"type": args.MessageTypes.Sticker,
+		#"clientRefId": clientrefid(),
+		"uid": self.userId,
+		"stickerId": stickerId
+		}
+
+		return resp.Message(await (await self.req.make_async_request("POST",  f"/g/s/chat/thread/{chatId}/message", data)).json())
+
+	async def send_media(self, chatId: str, file: BinaryIO, fileType: str | None = None, mediaUhqEnabled: bool = False) -> resp.Message:
+		
+		if fileType is None:
+			fileType = guess_type(file.name)[0]
+
+		data = {
+			"type": args.MessageTypes.Text,
+			"content": None,
+			#"clientRefId": clientrefid(),
+			"attachedObject": None,
+			"mediaUploadValueContentType": fileType,
+			"uid": self.userId
+			}
+
+
+		data["mediaUploadValue"] = b64encode(file.read()).decode()
+		if fileType == args.UploadType.audio:
+			#TODO FIX
+			data["type"] =  args.MessageTypes.Voice
+			data["mediaType"] = 110
+		elif fileType in [
+			args.UploadType.gif,
+			args.UploadType.image_jpeg,
+			args.UploadType.image_jpg,
+			args.UploadType.image_png]:
+			data["mediaUhqEnabled"] = mediaUhqEnabled
+			data["mediaType"] = 100
+
+		return resp.Message(await (await self.req.make_async_request("POST",  f"/g/s/chat/thread/{chatId}/message", data)).json())
+
+
