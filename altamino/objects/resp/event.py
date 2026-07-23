@@ -12,7 +12,7 @@ class Event:
 
 	def __init__(self, data: dict, client):
 		self.client: AsyncClient | Client = client
-		self.state: AsyncSafeState | ThreadSafeState = AsyncSafeState() if isinstance(client, AsyncClient) else ThreadSafeState()
+		self.state = AsyncSafeState() if client.is_async else ThreadSafeState()
 
 		
 		self.data = data or {}

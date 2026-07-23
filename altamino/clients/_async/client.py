@@ -27,6 +27,7 @@ class Client(
 	):
 
 	state: AsyncSafeState
+	is_async = True
 
 	@property
 	def proxy(self) -> ProxyConfig | ProxyPool | None:
