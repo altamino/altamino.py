@@ -1,5 +1,5 @@
 from . import Message
-
+from altamino.utils.state import AsyncSafeState, ThreadSafeState
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -12,7 +12,7 @@ class Event:
 
 	def __init__(self, data: dict, client):
 		self.client: AsyncClient | Client = client
-
+		self.state: AsyncSafeState | ThreadSafeState = AsyncSafeState() if isinstance(client, AsyncClient) else ThreadSafeState()
 
 		
 		self.data = data or {}

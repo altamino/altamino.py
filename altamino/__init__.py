@@ -46,7 +46,7 @@ def disable_file_logging():
 
 
 
-__version__ = '2.0.0'
+__version__ = '1.1.5'
 __newest__ = __version__
 __title__ = 'altamino'
 __author__ = 'alx0rr'

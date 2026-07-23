@@ -155,3 +155,39 @@ class CommunityChatsModule(AsyncBaseClass):
 		- chatId : ID of the Chat.
 		"""
 		return await (await self.req.make_async_request("DELETE", f"/x{self.comId}/s/chat/thread/{chatId}")).json()
+
+
+
+	async def get_my_chats(self, start: int = 0, size: int = 25) -> list[resp.Chat]:
+		"""
+		List of Chats the account is in.
+
+		**Parameters**
+		- start : Where to start the list.
+		- size : Size of the list.
+
+		"""
+		result = await (await self.req.make_async_request("GET", f"/x{self.comId}/s/chat/thread?type=joined-me&start={start}&size={size}")).json()["threadList"]
+		return [resp.Chat(x) for x in result]
+
+
+	async def get_chat(self, chatId: str) -> resp.Chat:
+		"""
+		Get the Chat Object from an Chat ID.
+
+		**Parameters**
+		- chatId : ID of the Chat.
+		"""
+		return resp.Chat(await (await self.req.make_async_request("GET", f"/x{self.comId}/s/chat/thread/{chatId}")).json())
+
+	async def get_chat_users(self, chatId: str, start: int = 0, size: int = 25) -> list[resp.UserProfile]:
+		"""
+		Getting users in chat. 
+
+		**Parameters**:
+		- chatId : ID of the Chat.
+		- start : Where to start the list.
+		- size : Size of the list.
+		"""
+		result = await (await self.req.make_async_request("GET", f"/x{self.comId}/s/chat/thread/{chatId}/member?cv=1.2&type=default&start={start}&size={size}")).json()["memberList"]
+		return [resp.UserProfile(x) for x in result]
