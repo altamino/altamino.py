@@ -28,7 +28,7 @@ class SocketActions:
 			"target":f"ndc://x{comId}/",
 			"ndcId":comId
 		}
-		await self.ws_send(req_t=304, body=data)
+		await self.ws_send(req_t=304, o=data)
 
 
 	async def browsing_blogs(self, comId: int, blogId: str | None = None, quizId: str | None = None) -> None:
@@ -49,7 +49,7 @@ class SocketActions:
 				"blogType": 0 if blogId else 6,
 				}
 		}
-		await self.ws_send(req_t=304, body=data)
+		await self.ws_send(req_t=304, o=data)
 
 
 	async def typing(self, chatId: str, comId: int | None = None) -> None:
@@ -68,7 +68,7 @@ class SocketActions:
 			"params": {"threadType": 2}
 		}
 		if comId:data["ndcId"]=comId
-		await self.ws_send(req_t=304, body=data)
+		await self.ws_send(req_t=304, o=data)
 
 	async def recording(self, chatId: str, comId: int | None = None) -> None:
 		"""
@@ -85,7 +85,7 @@ class SocketActions:
 			"target": f"ndc://x{comId}/chat-thread/{chatId}" if comId else f"ndc://x0/chat-thread/{chatId}",
 			"params": {"threadType": 2}
 		}
-		await self.ws_send(req_t=304, body=data)
+		await self.ws_send(req_t=304, o=data)
 
 
 	async def join_live_chat(self, chatId: str, comId: int | None = None, as_viewer: bool = False) -> None:
@@ -102,7 +102,7 @@ class SocketActions:
 			"joinRole": 2 if as_viewer else 1,
 		}
 		if comId:data["ndcId"]=int(comId)
-		await self.ws_send(req_t=112, body=data)
+		await self.ws_send(req_t=112, o=data)
 
 
 	async def browsing_leader_boards(self, comId: int) -> None:
@@ -120,4 +120,4 @@ class SocketActions:
 				"params": {"duration": 859},
 			}
 		}
-		await self.ws_send(req_t=306, body=data)
+		await self.ws_send(req_t=306, o=data)
