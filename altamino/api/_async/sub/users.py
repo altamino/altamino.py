@@ -11,7 +11,7 @@ from uuid import uuid4
 class CommunityUsersModule(AsyncBaseClass):
 	comId: str | int | None
 
-	async def follow(self, userId: str | list, comId: str | int | None = None):
+	async def follow(self, userId: str | list):
 		"""
 		Follow an User or Multiple Users.
 
@@ -20,41 +20,41 @@ class CommunityUsersModule(AsyncBaseClass):
 		"""
 		
 		if isinstance(userId, str):
-			return await (await self.req.make_async_request("POST", f"/x{comId or self.comId}/s/user-profile/{userId}/member")).json()
+			return await (await self.req.make_async_request("POST", f"/x{self.comId}/s/user-profile/{userId}/member")).json()
 		elif isinstance(userId, list):
 			data = { "targetUidList": userId }
-			return await (await self.req.make_async_request("POST", f"/x{comId or self.comId}/s/user-profile/{self.userId}/joined", data)).json()
+			return await (await self.req.make_async_request("POST", f"/x{self.comId}/s/user-profile/{self.userId}/joined", data)).json()
 		else: raise exceptions.WrongType(f"userId: {type(userId)}")
 
-	async def unfollow(self, userId: str, comId: str | int | None = None):
+	async def unfollow(self, userId: str):
 		"""
 		Unfollow an User.
 
 		**Parameters**
 		- userId : ID of the User.
 		"""
-		return await (await self.req.make_async_request("DELETE", f"/x{comId or self.comId}/s/user-profile/{self.userId}/joined/{userId}")).json()
+		return await (await self.req.make_async_request("DELETE", f"/x{self.comId}/s/user-profile/{self.userId}/joined/{userId}")).json()
 
-	async def block(self, userId: str, comId: str | int | None = None):
+	async def block(self, userId: str):
 		"""
 		Block an User.
 
 		**Parameters**
 		- userId : ID of the User.
 		"""
-		return await (await self.req.make_async_request("POST",  f"/x{comId or self.comId}/s/block/{userId}")).json()
+		return await (await self.req.make_async_request("POST",  f"/x{self.comId}/s/block/{userId}")).json()
 
-	async def unblock(self, userId: str, comId: str | int | None = None):
+	async def unblock(self, userId: str):
 		"""
 		Unblock an User.
 
 		**Parameters**
 		- userId : ID of the User.
 		"""
-		return await (await self.req.make_async_request("DELETE",  f"/x{comId or self.comId}/s/block/{userId}")).json()
+		return await (await self.req.make_async_request("DELETE",  f"/x{self.comId}/s/block/{userId}")).json()
 
 
-	async def get_all_users(self, type: str = args.UsersTypes.Recent, start: int = 0, size: int = 25, comId: str | int | None = None) -> list[resp.UserProfile]:
+	async def get_all_users(self, type: str = args.UsersTypes.Recent, start: int = 0, size: int = 25) -> list[resp.UserProfile]:
 		"""
 		Get info about all members.
 
@@ -67,20 +67,20 @@ class CommunityUsersModule(AsyncBaseClass):
 			- how much you want to get
 		"""
 		if type not in args.UsersTypes.all:raise exceptions.WrongType(f"type: {type} not in {args.UsersTypes.all}")
-		result = await (await self.req.make_async_request("GET", f"/x{comId or self.comId}/s/user-profile?type={type}&start={start}&size={size}")).json()["userProfileList"]
+		result = await (await self.req.make_async_request("GET", f"/x{self.comId}/s/user-profile?type={type}&start={start}&size={size}")).json()["userProfileList"]
 		return [resp.UserProfile(x) for x in result]
 
 
-	async def get_user_info(self, userId: str, comId: str | int | None = None) -> resp.UserProfile:
+	async def get_user_info(self, userId: str) -> resp.UserProfile:
 		"""
 		Information of an User.
 
 		**Parameters**
 		- userId : ID of the User.
 		"""
-		return resp.UserProfile(await (await self.req.make_async_request("GET", f"/x{comId or self.comId}/s/user-profile/{userId}")).json())
+		return resp.UserProfile(await (await self.req.make_async_request("GET", f"/x{self.comId}/s/user-profile/{userId}")).json())
 
-	async def search_users(self, nickname: str, start: int = 0, size: int = 25, comId: str | int | None = None) -> list[resp.UserProfile]:
+	async def search_users(self, nickname: str, start: int = 0, size: int = 25) -> list[resp.UserProfile]:
 		"""
 		Searching users by nickname.
 
@@ -89,5 +89,5 @@ class CommunityUsersModule(AsyncBaseClass):
 		- start : Where to start the list.
 		- size : Size of the list.
 		"""
-		result = await (await self.req.make_async_request("GET", f"/x{comId or self.comId}/s/user-profile?type=name&q={nickname}&start={start}&size={size}")).json()["userProfileList"]
+		result = await (await self.req.make_async_request("GET", f"/x{self.comId}/s/user-profile?type=name&q={nickname}&start={start}&size={size}")).json()["userProfileList"]
 		return [resp.UserProfile(x) for x in result]

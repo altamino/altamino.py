@@ -23,7 +23,8 @@ class Client(
 	AuthModule,
 	GlobalChatsModule,
 	AltTeamModule,
-	GlobalCommunitiesModule
+	GlobalCommunitiesModule,
+	GlobalUsersModule
 	):
 
 	state: AsyncSafeState
