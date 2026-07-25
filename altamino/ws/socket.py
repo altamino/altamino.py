@@ -7,7 +7,7 @@ from orjson import loads, dumps
 
 from threading import Thread
 
-from altamino.utils.generators import Generator
+from altamino.utils.generators import Generator, WSIdGenerator
 from altamino.utils.constants import ws_url, ws_ping_time, ws_reconnect_time
 from altamino.utils import log
 from altamino.ws.handler import MessageHandler
@@ -37,6 +37,7 @@ class Socket(MessageHandler, SocketActions):
 		self.ping_payload = dumps({"t": 116, "o": {"threadChannelUserInfoList": []}})
 		self.reconnect_thread = None
 		websocket.enableTrace(self.socket_trace)
+		self._id_gen = IdGenerator()
 
 		MessageHandler.__init__(self)
 

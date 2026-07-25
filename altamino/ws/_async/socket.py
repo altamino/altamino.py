@@ -7,7 +7,7 @@ from orjson import loads
 import asyncio
 
 from altamino.utils import log
-from altamino.utils.generators import Generator
+from altamino.utils.generators import Generator, WSIdGenerator
 from altamino.utils.constants import ws_url, ws_ping_time
 from altamino.ws._async.handler import MessageHandler
 from altamino.ws._async.actions import SocketActions
@@ -34,6 +34,8 @@ class Socket(MessageHandler, SocketActions):
 		self.task_receiver = None
 		self.task_pinger = None
 		self.ws_client_session = None
+
+		self._id_gen = IdGenerator()
 
 		MessageHandler.__init__(self)
 	
@@ -222,7 +224,7 @@ class Socket(MessageHandler, SocketActions):
 		while self.socket_enable and self.connection:
 			try:
 				if self.connection:
-					await self.ws_send(116, o={"threadChannelUserInfoList": []})
+					await self.ws_send(116, o={"threadChannelUserInfoList": [], "id": self._id_gen.next()})
 					await asleep(ws_ping_time)
 			except Exception as e:
 				log.debug(f"[WS] Ping error: {e}")

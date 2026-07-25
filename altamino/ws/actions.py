@@ -1,7 +1,9 @@
 from __future__ import annotations
 from altamino import exceptions
+from altamino.utils.generators import WSIdGenerator
 
 class SocketActions:
+	_id_gen: WSIdGenerator
 
 	def ws_send(self, req_t: int, **kwargs) -> None: ...
 	def call(self, data: dict) -> None: ...
@@ -26,7 +28,8 @@ class SocketActions:
 		data = {
 			"actions": ["Browsing"],
 			"target":f"ndc://x{comId}/",
-			"ndcId":comId
+			"ndcId":comId,
+			"id": self._id_gen.next(),
 		}
 		self.ws_send(req_t=304, o=data)
 
@@ -47,7 +50,8 @@ class SocketActions:
 			"ndcId":comId,
 			"params": {
 				"blogType": 0 if blogId else 6,
-				}
+				},
+			"id": self._id_gen.next(),
 		}
 		self.ws_send(req_t=304, o=data)
 
@@ -65,7 +69,8 @@ class SocketActions:
 			"actions": ["Typing"],
 			"threadId": chatId,
 			"target": f"ndc://x{comId}/chat-thread/{chatId}" if comId else f"ndc://x0/chat-thread/{chatId}",
-			"params": {"threadType": 2}
+			"params": {"threadType": 2},
+			"id": self._id_gen.next(),
 		}
 		if comId:data["ndcId"]=comId
 		self.ws_send(req_t=304, o=data)
@@ -83,7 +88,8 @@ class SocketActions:
 			"actions": ["Recording"],
 			"threadId": chatId,
 			"target": f"ndc://x{comId}/chat-thread/{chatId}" if comId else f"ndc://x0/chat-thread/{chatId}",
-			"params": {"threadType": 2}
+			"params": {"threadType": 2},
+			"id": self._id_gen.next(),
 		}
 		self.ws_send(req_t=304, o=data)
 
@@ -100,6 +106,7 @@ class SocketActions:
 		data = {
 			"threadId": chatId,
 			"joinRole": 2 if as_viewer else 1,
+			"id": self._id_gen.next(),
 		}
 		if comId:data["ndcId"]=int(comId)
 		self.ws_send(req_t=112, o=data)
@@ -118,6 +125,7 @@ class SocketActions:
 				"target": f"ndc://x{comId}/leaderboards",
 				"ndcId": int(comId),
 				"params": {"duration": 859},
+				"id": self._id_gen.next()
 			}
 		}
 		self.ws_send(req_t=306, o=data)

@@ -20,7 +20,16 @@ from altamino.utils.constants import (
     APP_VERSIONS
 )
 
+import time
 
+
+class WSIdGenerator:
+    def __init__(self):
+        self._value = int(time.time() * 1000) % 1_000_000_000
+
+    def next(self) -> str:
+        self._value += 1
+        return str(self._value)
 
 class Generator:
 
