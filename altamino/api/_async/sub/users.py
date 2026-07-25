@@ -33,7 +33,7 @@ class CommunityUsersModule(AsyncBaseClass):
 		**Parameters**
 		- userId : ID of the User.
 		"""
-		return await (await self.req.make_async_request("DELETE", f"/x{self.comId}/s/user-profile/{self.userId}/joined/{userId}")).json()
+		return await (await self.req.make_async_request("DELETE", f"/x{self.comId}/s/user-profile/{self.userId}/member/{userId}")).json()
 
 	async def block(self, userId: str):
 		"""
