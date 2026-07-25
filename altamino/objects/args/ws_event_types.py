@@ -29,7 +29,7 @@ class wsEvent:
 
         "on_user_membership", "on_user_membership_invitation", "on_comment", "on_reply",
         "on_vote_up", "on_repost", "on_message_notification", "on_chat_typing",
-        "on_thread_user_observing", "on_chat_thread_invite", "on_join_request_received",
+        "on_thread_user_observing", "on_chat_invite", "on_join_request_received",
         "on_join_request_approved", "on_invite_to_voice_chat_notification",
         "on_invite_to_video_chat_notification", "on_invite_to_screening_room",
         "on_vv_chat_presenter_invite", "on_chat_add_cohost", "on_chat_remove_cohost",
@@ -72,7 +72,7 @@ notification_types = {
     18: "on_message_notification",
     19: "on_chat_typing",
     20: "on_thread_user_observing",
-    21: "on_chat_invite",          # реальный инвайт в чат
+    21: "on_chat_invite",        
     22: "on_join_request_received",
     23: "on_join_request_approved",
     29: "on_invite_to_voice_chat_notification",

@@ -30,7 +30,8 @@ class MessageHandler(Router):
 			key = f"{data['o']['chatMessage']['type']}:{data['o']['chatMessage'].get('mediaType', 0)}"
 			ws_event = ws_message_types.get(key)
 		elif method == "notification":
-			key = data["o"]["payload"]["notifType"]
+			payload = data["o"].get("payload") or {}
+			key = payload.get("notifType")
 			ws_event = notification_types.get(key)
 		else:
 			key = "unknown"

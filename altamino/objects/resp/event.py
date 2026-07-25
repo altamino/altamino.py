@@ -26,8 +26,8 @@ class Event:
         self.duration = params.get("duration")
 
         # --- push notification (topic 10) ---
-        payload = data.get("payload") or {}
-        self.payload: Notification | None = Notification(payload) if payload else None
+        payload = data.get("payload", {})
+        self.payload: Notification = Notification(payload)
 
         self.comId = data.get("ndcId") or payload.get("ndcId")
 
