@@ -37,7 +37,7 @@ class Socket(MessageHandler, SocketActions):
 		self.ping_payload = dumps({"t": 116, "o": {"threadChannelUserInfoList": []}})
 		self.reconnect_thread = None
 		websocket.enableTrace(self.socket_trace)
-		self._id_gen = IdGenerator()
+		self._id_gen = WSIdGenerator()
 
 		MessageHandler.__init__(self)
 

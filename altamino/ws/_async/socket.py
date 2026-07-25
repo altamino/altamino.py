@@ -35,7 +35,7 @@ class Socket(MessageHandler, SocketActions):
 		self.task_pinger = None
 		self.ws_client_session = None
 
-		self._id_gen = IdGenerator()
+		self._id_gen = WSIdGenerator()
 
 		MessageHandler.__init__(self)
 	
