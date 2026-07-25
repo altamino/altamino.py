@@ -8,7 +8,20 @@ class Router:
     def __init__(self):
         self.handlers: dict = {}
         self.middlewares: dict = {}
+        self.error_handlers: set = set()
 
+    def add_error_handler(self, handler):
+        """Registers an error handler"""
+        self.error_handlers.add(handler)
+        return handler
+
+    def error_handler(self):
+        """Decorator to register an error handler"""
+        def registerHandler(handler: Callable):
+            self.add_error_handler(handler)
+            return handler
+        return registerHandler
+    
     def add_router(self, router: "Router"):
         """Merge a router's handlers and middlewares into this one"""
         for type_, funcs in router.handlers.items():
