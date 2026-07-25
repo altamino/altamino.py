@@ -10,13 +10,15 @@ class GlobalUsersModule(AsyncBaseClass):
 
 	async def follow(self, userId: str):
 		"""
-		Follow an User.
+		Follow an User or Multiple Users.
 
 		**Parameters**
-		- userId : ID of the User.
+		- userId : ID of the User or List of IDs of the Users.
 		"""
 		
-		return await (await self.req.make_async_request("POST", f"/g/s/user-profile/{userId}/member")).json()
+
+		return await (await self.req.make_async_request("POST", f"/g/s/user-profile/{userId}/member", headers={"Content-Type": "application/x-www-form-urlencoded"})).json()
+
 
 	async def unfollow(self, userId: str):
 		"""
@@ -25,4 +27,5 @@ class GlobalUsersModule(AsyncBaseClass):
 		**Parameters**
 		- userId : ID of the User.
 		"""
-		return await (await self.req.make_async_request("DELETE", f"/g/s/user-profile/{self.userId}/member/{userId}")).json()
+		return await (await self.req.make_async_request("DELETE", f"/g/s/user-profile/{userId}/member/{self.userId}")).json()
+

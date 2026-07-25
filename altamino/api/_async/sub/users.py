@@ -20,7 +20,7 @@ class CommunityUsersModule(AsyncBaseClass):
 		"""
 		
 		if isinstance(userId, str):
-			return await (await self.req.make_async_request("POST", f"/x{self.comId}/s/user-profile/{userId}/member")).json()
+			return await (await self.req.make_async_request("POST", f"/x{self.comId}/s/user-profile/{userId}/member", headers={"Content-Type": "application/x-www-form-urlencoded"})).json()
 		elif isinstance(userId, list):
 			data = { "targetUidList": userId }
 			return await (await self.req.make_async_request("POST", f"/x{self.comId}/s/user-profile/{self.userId}/joined", data)).json()
@@ -33,7 +33,7 @@ class CommunityUsersModule(AsyncBaseClass):
 		**Parameters**
 		- userId : ID of the User.
 		"""
-		return await (await self.req.make_async_request("DELETE", f"/x{self.comId}/s/user-profile/{self.userId}/member/{userId}")).json()
+		return await (await self.req.make_async_request("DELETE", f"/x{self.comId}/s/user-profile/{userId}/member/{self.userId}")).json()
 
 	async def block(self, userId: str):
 		"""
