@@ -74,7 +74,6 @@ class Socket(MessageHandler, SocketActions):
 	async def ws_disconnect(self):
 		"""Fully stop the socket and prevent the supervisor from reopening it."""
 		log.debug("[WS] Closing socket...")
-		self.socket_enable = False
 
 		if self.task_supervisor:
 			self.task_supervisor.cancel()
@@ -99,6 +98,11 @@ class Socket(MessageHandler, SocketActions):
 		except CancelledError:
 			log.debug("[ws][socket_wait] Socket wait cancelled")
 			await self.ws_disconnect()
+
+	async def ws_shutdown(self):
+		self.socket_enable = False
+		await self.ws_disconnect()
+
 
 	async def _supervisor(self):
 		"""Owns the connection lifecycle. Reconnects forever with backoff."""
