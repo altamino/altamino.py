@@ -49,7 +49,11 @@ class MessageHandler(AsyncRouter):
 				try:
 					await func(data_object)
 				except Exception as e:
-					log.error(f"[ws][event][{func}] Error: {e}")
+					if self.error_handlers:
+						for x in self.error_handlers:
+							await x(e, data_object)	
+					else:
+						log.error(f"[ws][event][{func}] Error: {e}")
 
 
 
@@ -68,4 +72,8 @@ class MessageHandler(AsyncRouter):
 			except MiddlewareStopException:
 				raise
 			except Exception as e:
-				log.error(f"[WS][middleware][{middleware}] Error: {e}")
+				if self.error_handlers:
+					for x in self.error_handlers:
+						await x(e, data)	
+				else:
+					log.error(f"[WS][middleware][{middleware}] Error: {e}")

@@ -17,3 +17,6 @@ class MessageTypes:
 	Voice: int = 2
 	Sticker: int = 3
 	Video: int = 4
+	MemberJoinChat: int = 101
+	MemberLeaveChat: int = 102
+	ChatInvite: int = 103
